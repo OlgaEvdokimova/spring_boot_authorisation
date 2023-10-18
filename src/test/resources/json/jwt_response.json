@@ -1,0 +1,5 @@
+{
+  "userId": 1,
+  "accessToken": "string",
+  "refreshToken": "string"
+}

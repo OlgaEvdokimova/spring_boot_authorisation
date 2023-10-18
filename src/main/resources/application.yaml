@@ -1,0 +1,42 @@
+spring:
+  profiles:
+    active: security
+  mvc:
+    log-request-details: true
+  logging:
+    level:
+      root: debug
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo
+    username: postgres
+    password: postgres
+  flyway:
+    default-schema: public
+    baseline-on-migrate: true
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: demo.bus.test@gmail.com
+    password: Demo_demo
+    port: 587
+    protocol: smtp
+    debug: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  token:
+    jwtSecret: 8335fa56d487562de248f47befc72743334051ddffcc2c09275f665454990317594745ee17c08f798cd7dce0ba8155dcda14f6398c1d1545116520a133017c09
+    jwtAccessExpiration: 1800
+    jwtRefreshExpiration: 86400
+logging.level.org.springframework.web: DEBUG
+#logging.level.root: debug

@@ -1,0 +1,14 @@
+{
+  "firstName": "Olga",
+  "lastName": "E",
+  "password": "123",
+  "email": "olgaaevdokim@gmail.com",
+  "phones": [
+    {
+      "number": "+375445855713"
+    },
+    {
+      "number": "+375291664104"
+    }
+  ]
+}
