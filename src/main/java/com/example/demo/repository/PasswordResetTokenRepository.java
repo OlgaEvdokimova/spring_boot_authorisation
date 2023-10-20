@@ -12,8 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, Long> {
 
-    @Query("SELECT prt.user FROM PasswordResetToken prt WHERE prt.token = :token")
-    Optional<User> findByResetPasswordToken(String token);
-
     Optional<PasswordResetToken> findByToken(String token);
 }

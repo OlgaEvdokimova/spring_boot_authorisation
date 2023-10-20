@@ -29,7 +29,6 @@ public class PasswordResetTokenService {
         if (passwordResetToken.getTokenExpirationTime().isBefore(LocalDateTime.now())) {
             throw new TokenExpiredException(PASSWORD_RESET_TOKEN_IS_EXPIRED);
         }
-        return passwordResetTokenRepository.findByResetPasswordToken(token)
-                .orElseThrow(() -> new UserNotFoundException("User not found by token"));
+        return passwordResetToken.getUser();
     }
 }
