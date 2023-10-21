@@ -1,0 +1,1 @@
+DELETE FROM user_details WHERE user_id = 2;

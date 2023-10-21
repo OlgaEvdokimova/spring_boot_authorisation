@@ -12,10 +12,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
 
-    @Query("SELECT u FROM User u WHERE u.userRole.id = 2 and u.firstName =:firstname and u.lastName= :lastname ")
-    Optional<List<User>> findByFirstnameAndLastname(String firstname, String lastname);
+    @Query("SELECT u FROM User u WHERE u.userRole = 'USER' and u.firstName =:firstname and u.lastName= :lastname ")
+    List<User> findByFirstnameAndLastname(String firstname, String lastname);
 
-    @Query("SELECT u FROM User u WHERE u.userRole.id = 2")
-    Optional<List<User>> findByRoleId(long roleId);
+    @Query("SELECT u FROM User u WHERE u.userRole = 'USER'")
+    List<User> findByRoleId(long roleId);
 
 }

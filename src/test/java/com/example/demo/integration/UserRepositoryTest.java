@@ -30,13 +30,13 @@ public class UserRepositoryTest {
 
     @Test
     public void expectedTrueIfFounduserByEmail() {
-        Optional<User> user = userRepository.findByEmail(EMAIL);
+        var user = userRepository.findByEmail(EMAIL);
         Assertions.assertTrue(user.isPresent());
     }
 
     @Test
     public void expectedTrueIfFounduserById() {
-        Optional<User> user = userRepository.findById(2L);
-        Assertions.assertTrue(user.isPresent());
+       var user = userRepository.findById(2L);
+       Assertions.assertTrue(user.isPresent());
     }
 }

@@ -1,16 +1,4 @@
 package com.example.demo.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+public record JwtResponse (Long userId, String accessToken, String refreshToken) {}
 
-@Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class JwtResponse {
-    private Long userId;
-    private String accessToken;
-    private String refreshToken;
-}

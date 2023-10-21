@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.TokenDetails;
 import com.example.demo.entity.User;
-import com.example.demo.properties.JwtTokenProperties;
+import com.example.demo.config.properties.JwtTokenProperties;
 import com.example.demo.repository.TokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -30,7 +30,8 @@ public class JwtService {
 
     public boolean validateJwtToken(String jwt) {
         try {
-            tokenRepository.findByAccessToken(jwt).orElseThrow(() -> new JwtException(String.format(ACCESS_TOKEN_NOT_FOUND_TEMPLATE, jwt)));
+            tokenRepository.findByAccessToken(jwt).orElseThrow(() -> new JwtException(
+                    ACCESS_TOKEN_NOT_FOUND_TEMPLATE.formatted(jwt)));
             Jwts.parserBuilder()
                     .setSigningKey(getJwtSecret())
                     .build()
@@ -38,7 +39,7 @@ public class JwtService {
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             log.error("Authentication Error" + e.getMessage());
-            throw new RuntimeException("Token is invalid", e);
+            throw new IllegalArgumentException("Token is invalid", e);
         }
     }
 

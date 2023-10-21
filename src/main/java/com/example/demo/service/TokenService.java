@@ -26,7 +26,8 @@ public class TokenService {
 
     public TokenDetails getTokenDetailsByRefresh(String refreshToken) {
         return tokenRepository.findByRefreshToken(refreshToken)
-                .orElseThrow(() -> new TokenRefreshNotFoundException(String.format(REFRESH_TOKEN_NOT_FOUND_TEMPLATE, refreshToken)));
+                .orElseThrow(() -> new TokenRefreshNotFoundException(
+                        REFRESH_TOKEN_NOT_FOUND_TEMPLATE.formatted(refreshToken)));
     }
 
     public void deleteTokensByUser(TokenDetails tokenDetails) {

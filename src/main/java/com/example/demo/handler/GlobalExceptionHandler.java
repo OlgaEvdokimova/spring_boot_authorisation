@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
         return responseError;
     }
 
-    @ExceptionHandler(value = {GenericException.class})
+    @ExceptionHandler(value = {GenericException.class, Exception.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseError genericException(Exception e) {
         ResponseError responseError = getResponseError();
@@ -44,7 +44,10 @@ public class GlobalExceptionHandler {
         return responseError;
     }
 
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    @ExceptionHandler(value = {
+            MethodArgumentNotValidException.class,
+            NotMatchedException.class,
+            IllegalArgumentException.class})
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ResponseError validationException(Exception e) {
         ResponseError responseError = getResponseError();

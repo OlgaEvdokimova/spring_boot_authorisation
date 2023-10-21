@@ -1,7 +1,6 @@
 package com.example.demo.dto.user;
 
 import com.example.demo.validation.PasswordValidator;
-import com.example.demo.dto.phone.PhoneDto;
 
 import java.util.List;
 
@@ -33,5 +32,5 @@ public class UserRegisterDto {
 
 
     @Size(min = 1, max = 20)
-    private List<PhoneDto> phones;
+    private List<String> phones;
 }

@@ -18,11 +18,15 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {CustomPasswordValidator.class})
 public @interface PasswordValidator {
 
-    String message() default "Password must be at least 8 characters long, " +
-            "contains at least 1 upper case letter, " +
-            "1 lower case letter, " +
-            "1 digit " +
-            "and one of these symbols ~`! @#$%^&*()_-+={[}]|\\:;\"'<,>.?/.";
+    String message() default
+            """
+            Password must be at least 8 characters
+            long,
+            contains at least 1 upper case letter,
+            1 lower case letter,
+            1 digit
+            and one of these symbols ~`! @#$%^&*()_-+={[}]|\\:;\"'<,>.?/.
+            """;
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

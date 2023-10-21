@@ -1,32 +1,18 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
-@Entity
-@Table(name = "user_role")
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Builder
-public class Role implements GrantedAuthority {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    private Long id;
+public enum Role implements GrantedAuthority {
 
-    @Column(name = "role_name")
-    private String name;
+    USER("USER"),
+    ADMIN("ADMIN");
+
+    private final String name;
+
+    Role(String name) {
+        this.name = name();
+    }
 
     @Override
     public String getAuthority() {

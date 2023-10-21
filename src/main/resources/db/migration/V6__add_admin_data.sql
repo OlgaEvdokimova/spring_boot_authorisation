@@ -1,0 +1,1 @@
+INSERT INTO user_details(user_id, firstname,  lastname, email, password, phones, user_role) VALUES(1, 'olga', 'chek', 'olga@gmal.com', '$2a$10$u9DC8VhvNbPF1.rcHPRb5ukK3PNtgL8s9dxbrOWkrN3cNRdMT5ICm', '{+375291112233}', 'ADMIN');

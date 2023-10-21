@@ -18,20 +18,6 @@ spring:
   flyway:
     default-schema: public
     baseline-on-migrate: true
-  mail:
-    default-encoding: UTF-8
-    host: smtp.gmail.com
-    username: demo.bus.test@gmail.com
-    password: Demo_demo
-    port: 587
-    protocol: smtp
-    debug: true
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
 
 jwt:
   token:

@@ -43,7 +43,7 @@ public class PasswordResetController {
         try {
             String email = request.getParameter("email");
             User user = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(
-                    String.format(USER_BY_EMAIL_NOT_FOUND_MESSAGE_TEMPLATE, email)));
+                    USER_BY_EMAIL_NOT_FOUND_MESSAGE_TEMPLATE.formatted(email)));
             String passwordToken = UUID.randomUUID().toString();
             passwordResetTokenService.createPasswordResetTokenForUser(user, passwordToken);
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + passwordToken;

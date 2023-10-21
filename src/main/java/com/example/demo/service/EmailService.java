@@ -25,18 +25,8 @@ public class EmailService {
     private static final String DELETE_USER_EMAIL_TEMPLATE = "removing.ftl";
     private static final String RESET_PASSWORD_EMAIL_TEMPLATE = "reset.ftl";
 
-    private static final Properties MAIL_PROPERTIES = new Properties();
-
-    static {
-        MAIL_PROPERTIES.put("mail.smtp.auth", true);
-        MAIL_PROPERTIES.put("mail.smtp.starttls.enable", "true");
-        MAIL_PROPERTIES.put("mail.smtp.host", "smtp.mailtrap.io");
-        MAIL_PROPERTIES.put("mail.smtp.port", "587");
-        MAIL_PROPERTIES.put("mail.smtp.ssl.trust", "smtp.mailtrap.io");
-    }
-
-    private final Session session = Session.getDefaultInstance(MAIL_PROPERTIES);
     private final EmailMessageTemplate emailMessageTemplate;
+    private final Session session;
 
     public MimeMessage createMessage() {
         return new MimeMessage(session);

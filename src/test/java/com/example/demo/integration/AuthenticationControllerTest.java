@@ -35,19 +35,17 @@ import static org.mockito.BDDMockito.given;
 @TestPostgresContainer
 public class AuthenticationControllerTest {
 
-    private final static String DEFAULT_ROLE = "ROLE_USER";
     private final static String DEFAULT_PASSWORD = "passwordP_123#";
     private final static String DEFAULT_EMAIL = "email@gmail.com";
     private final static String DEFAULT_ACCESS_TOKEN = "string";
     private final static String DEFAULT_REFRESH_TOKEN = "string";
     private final static Long DEFAULT_ID = 1L;
-    public static final Role ROLE = Role.builder().id(2L).name(DEFAULT_ROLE).build();
 
     public static final User DEFAULT_USER = User.builder()
             .id(DEFAULT_ID)
             .email(DEFAULT_EMAIL)
             .password(DEFAULT_PASSWORD)
-            .userRole(ROLE)
+            .userRole(Role.USER)
             .build();
     @Autowired
     private WebTestClient webTestClient;
@@ -68,7 +66,7 @@ public class AuthenticationControllerTest {
 
     @Test
     void shouldReturnJwtResponseOnLogin() throws IOException {
-        TokenDetails tokenDetails = TokenDetails.builder()
+        var tokenDetails = TokenDetails.builder()
                 .user(DEFAULT_USER)
                 .accessToken(DEFAULT_ACCESS_TOKEN)
                 .refreshToken(DEFAULT_REFRESH_TOKEN)
@@ -76,8 +74,8 @@ public class AuthenticationControllerTest {
         given(userRepository.findByEmail(DEFAULT_EMAIL)).willReturn(Optional.of(DEFAULT_USER));
         given(jwtService.generateTokenDetails(DEFAULT_USER)).willReturn(tokenDetails);
 
-        String login = FileReaderUtil.readFromJsonFile("json/login_request.json");
-        String response = FileReaderUtil.readFromJsonFile("json/jwt_response.json");
+        var login = FileReaderUtil.readFromJsonFile("json/login_request.json");
+        var response = FileReaderUtil.readFromJsonFile("json/jwt_response.json");
         webTestClient
                 .post()
                 .uri("/auth/user/logIn")
@@ -94,7 +92,7 @@ public class AuthenticationControllerTest {
     @Test
     void shouldReturnBadRequestOnLogin() throws IOException {
 
-        String login = FileReaderUtil.readFromJsonFile("json/login_request_password_not_match_pattern.json");
+        var login = FileReaderUtil.readFromJsonFile("json/login_request_password_not_match_pattern.json");
         webTestClient
                 .post()
                 .uri("/auth/user/logIn")
