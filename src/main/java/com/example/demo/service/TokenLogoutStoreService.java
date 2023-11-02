@@ -10,7 +10,7 @@ public class TokenLogoutStoreService {
 
     private final RefreshTokenRepository logoutStoreRepository;
 
-    public void delete(String token) {
-        logoutStoreRepository.deleteById(token);
+    public void delete(String tokenId) {
+        logoutStoreRepository.deleteById(tokenId);
     }
 }
