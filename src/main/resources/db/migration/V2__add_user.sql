@@ -1,5 +1,5 @@
 CREATE SEQUENCE user_details_seq START WITH 2 INCREMENT BY 1;
-DROP TYPE public."u_role" CASCADE;
+--DROP TYPE public."u_role" CASCADE;
 CREATE TYPE u_role AS ENUM ('USER', 'ADMIN');
 CREATE CAST (varchar AS u_role) WITH INOUT AS IMPLICIT;
 CREATE TABLE user_details(

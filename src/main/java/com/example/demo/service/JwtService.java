@@ -1,37 +1,34 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.TokenDetails;
-import com.example.demo.entity.User;
 import com.example.demo.config.properties.JwtTokenProperties;
-import com.example.demo.repository.TokenRepository;
+import com.example.demo.dto.TokenDetails;
+import com.example.demo.entity.User;
+import com.example.demo.repository.RefreshTokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-
-import java.security.Key;
-import java.util.Date;
-import java.util.function.Function;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
+import java.util.Date;
+import java.util.function.Function;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtService {
-    public static final String ACCESS_TOKEN_NOT_FOUND_TEMPLATE = "Access token %s not found";
+
     private final JwtTokenProperties jwtTokenProperties;
-    private final TokenRepository tokenRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     public boolean validateJwtToken(String jwt) {
         try {
-            tokenRepository.findByAccessToken(jwt).orElseThrow(() -> new JwtException(
-                    ACCESS_TOKEN_NOT_FOUND_TEMPLATE.formatted(jwt)));
             Jwts.parserBuilder()
                     .setSigningKey(getJwtSecret())
                     .build()

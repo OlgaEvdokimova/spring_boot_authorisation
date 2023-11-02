@@ -15,7 +15,12 @@ public class UserMapper {
     private final PasswordEncoder passwordEncoder;
 
     public User toUserWithEncodePassword(Role userRole, UserRegisterDto userRegisterDto) {
-        return getUserBuilder(userRegisterDto, userRole)
+        return User.builder()
+                .firstName(userRegisterDto.getFirstName())
+                .lastName(userRegisterDto.getLastName())
+                .phoneNumbers(userRegisterDto.getPhones())
+                .userRole(userRole)
+                .email(userRegisterDto.getEmail())
                 .password(encodePassword(userRegisterDto.getPassword()))
                 .build();
     }
@@ -24,15 +29,14 @@ public class UserMapper {
         return passwordEncoder.encode(password);
     }
 
-
-    private User.UserBuilder getUserBuilder(UserRegisterDto userRegisterDto, Role userRole) {
-        return User.builder()
-                .firstName(userRegisterDto.getFirstName())
-                .lastName(userRegisterDto.getLastName())
-                .phoneNumbers(userRegisterDto.getPhones())
-                .userRole(userRole)
-                .email(userRegisterDto.getEmail());
-    }
+//    public User.UserBuilder getUserBuilder(UserRegisterDto userRegisterDto, Role userRole) {
+//        return User.builder()
+//                .firstName(userRegisterDto.getFirstName())
+//                .lastName(userRegisterDto.getLastName())
+//                .phoneNumbers(userRegisterDto.getPhones())
+//                .userRole(userRole)
+//                .email(userRegisterDto.getEmail());
+//    }
 
     public UserDto toUserDto(User user) {
         return UserDto.builder()

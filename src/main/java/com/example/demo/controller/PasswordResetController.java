@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import static com.example.demo.service.UserService.USER_BY_EMAIL_NOT_FOUND_MESSAGE_TEMPLATE;
-
 import com.example.demo.entity.User;
 import com.example.demo.handler.EmailException;
 import com.example.demo.handler.UserNotFoundException;
@@ -10,9 +8,6 @@ import com.example.demo.service.EmailService;
 import com.example.demo.service.PasswordResetTokenService;
 import com.example.demo.service.UserService;
 import com.example.demo.util.Utility;
-
-import java.util.UUID;
-
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -22,6 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.UUID;
+
+import static com.example.demo.service.UserService.USER_BY_EMAIL_NOT_FOUND_MESSAGE_TEMPLATE;
 
 @Controller
 @RequiredArgsConstructor

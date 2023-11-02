@@ -2,15 +2,13 @@ package com.example.demo.service;
 
 import com.example.demo.entity.PasswordResetToken;
 import com.example.demo.entity.User;
-import com.example.demo.handler.TokenExpiredException;
 import com.example.demo.handler.NotFoundException;
-import com.example.demo.handler.UserNotFoundException;
+import com.example.demo.handler.TokenExpiredException;
 import com.example.demo.repository.PasswordResetTokenRepository;
-
-import java.time.LocalDateTime;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor

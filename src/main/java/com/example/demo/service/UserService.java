@@ -5,7 +5,6 @@ import com.example.demo.dto.RequestChangePassword;
 import com.example.demo.dto.user.UserDto;
 import com.example.demo.dto.user.UserRegisterDto;
 import com.example.demo.entity.Role;
-import com.example.demo.entity.TokenDetails;
 import com.example.demo.entity.User;
 import com.example.demo.handler.NotMatchedException;
 import com.example.demo.handler.UserNotFoundException;
@@ -62,9 +61,9 @@ public class UserService {
         return (User) securityContextReader.getAuthenticationFromSecurityContext().getPrincipal();
     }
 
-    public void isConfirmedUser(TokenDetails tokenDetails) {
+    public void isConfirmedUser(String email) {
         Authentication authentication = securityContextReader.getAuthenticationFromSecurityContext();
-        if (!Objects.equals(tokenDetails.getUser().getEmail(), authentication.getName())) {
+        if (!Objects.equals(email, authentication.getName())) {
             throw new NotMatchedException(USERS_IN_SYSTEM_ARE_NOT_MATCHED_WITH_REFRESH_TOKEN);
         }
     }

@@ -1,6 +1,7 @@
-package com.example.demo.entity;
+package com.example.demo.dto;
 
 
+import com.example.demo.entity.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,26 +15,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "token_details")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class TokenDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "token_id")
-    private Long id;
+    private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
-    @Column(name = "refresh_token", nullable = false, unique = true)
     private String refreshToken;
 
-    @Column(name = "access_token", nullable = false, unique = true)
     private String accessToken;
 }

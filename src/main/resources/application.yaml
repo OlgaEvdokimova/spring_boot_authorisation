@@ -12,16 +12,18 @@ spring:
       ddl-auto: validate
     open-in-view: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/demo
-    username: postgres
-    password: postgres
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/demo}
+    username: ${DATASOURCE_PASSWORD:postgres}
+    password: ${DATASOURCE_USERNAME:postgres}
   flyway:
     default-schema: public
     baseline-on-migrate: true
-
+  redis:
+    port: 6379
+    host: ${REDIS_HOST:localhost}
 jwt:
   token:
-    jwtSecret: 8335fa56d487562de248f47befc72743334051ddffcc2c09275f665454990317594745ee17c08f798cd7dce0ba8155dcda14f6398c1d1545116520a133017c09
+    jwtSecret: ${JWT_SECRET:8335fa56d487562de248f47befc72743334051ddffcc2c09275f665454990317594745ee17c08f798cd7dce0ba8155dcda14f6398c1d1545116520a133017c09}
     jwtAccessExpiration: 1800
     jwtRefreshExpiration: 86400
 logging.level.org.springframework.web: DEBUG

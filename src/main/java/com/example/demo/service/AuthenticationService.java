@@ -3,7 +3,8 @@ package com.example.demo.service;
 import com.example.demo.dto.JwtResponse;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.user.UserRegisterDto;
-import com.example.demo.entity.TokenDetails;
+import com.example.demo.dto.TokenDetails;
+import com.example.demo.entity.RefreshToken;
 import com.example.demo.entity.User;
 
 import jakarta.transaction.Transactional;
@@ -20,13 +21,14 @@ public class AuthenticationService {
     private final TokenService tokenService;
     private final AuthenticationManager authenticationManager;
     private final NotificationService notificationService;
+    private final TokenLogoutStoreService tokenLogoutStoreService;
 
     public JwtResponse login(LoginRequest loginRequest) {
         authenticate(loginRequest);
         User user = userService.getUserByEmail(loginRequest.getEmail());
         TokenDetails tokenDetails = tokenService.generateTokenDetails(user);
-        tokenService.save(tokenDetails);
-        return new JwtResponse(user.getId(), tokenDetails.getAccessToken(), tokenDetails.getRefreshToken());
+        RefreshToken refreshToken = tokenService.saveRefreshTokenSession(tokenDetails.getRefreshToken());
+        return new JwtResponse(user.getId(), tokenDetails.getAccessToken(), refreshToken.getId());
     }
 
     private void authenticate(LoginRequest loginRequest){
@@ -39,14 +41,14 @@ public class AuthenticationService {
     public JwtResponse register(UserRegisterDto userRegisterDto) {
         User user = userService.saveUser(userRegisterDto);
         TokenDetails tokenDetails = tokenService.generateTokenDetails(user);
-        tokenService.save(tokenDetails);
+        RefreshToken refreshToken = tokenService.saveRefreshTokenSession(tokenDetails.getRefreshToken());
         notificationService.sendRegisterNotification(user);
-        return new JwtResponse(user.getId(), tokenDetails.getAccessToken(), tokenDetails.getRefreshToken());
+        return new JwtResponse(user.getId(), tokenDetails.getAccessToken(), refreshToken.getId());
     }
 
     @Transactional
     public void logout(String refreshToken) {
-        TokenDetails tokenDetails = tokenService.getTokenDetailsByRefresh(refreshToken);
-        tokenService.deleteTokensByUser(tokenDetails);
+        tokenService.checkUserByToken(refreshToken);
+        tokenLogoutStoreService.delete(refreshToken);
     }
 }
