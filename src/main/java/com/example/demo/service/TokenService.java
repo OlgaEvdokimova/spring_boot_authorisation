@@ -34,10 +34,10 @@ public class TokenService {
         return save;
     }
 
-    public void checkUserByToken(String refreshTokenId) {
+    public void checkUserByRefreshToken(String refreshTokenId) {
         RefreshToken refreshToken = refreshTokenRepository.findById(refreshTokenId)
                 .orElseThrow(() -> new JwtException(TOKEN_WAS_LOGOUT.formatted(refreshTokenId)));
-        String username = jwtService.extractUsername(refreshToken.getRefreshToken());
+        String username = jwtService.extractUsernameRefresh(refreshToken.getRefreshToken());
         userService.isConfirmedUser(username);
     }
 }

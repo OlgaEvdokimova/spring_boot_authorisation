@@ -23,8 +23,10 @@ spring:
     host: ${REDIS_HOST:localhost}
 jwt:
   token:
-    jwtSecret: ${JWT_SECRET:8335fa56d487562de248f47befc72743334051ddffcc2c09275f665454990317594745ee17c08f798cd7dce0ba8155dcda14f6398c1d1545116520a133017c09}
-    jwtAccessExpiration: 1800
+    #secrets should be different
+    jwtSecretAccess: ${JWT_SECRET_ACCESS:8335fa56d487562de248f47befc72743334051ddffcc2c09275f665454990317594745ee17c08f798cd7dce0ba8155dcda14f6398c1d1545116520a133017c09}
+    jwtSecretRefresh: ${JWT_SECRET_REFRESH:8335fa56d487562de248f47befc72743334051ddffcc2c09275f665454990317594745ee17c08f798cd7dce0ba8155dcda14f6398c1d1545116520a133017c09}
+    jwtAccessExpiration: 60
     jwtRefreshExpiration: 86400
 logging.level.org.springframework.web: DEBUG
 #logging.level.root: debug

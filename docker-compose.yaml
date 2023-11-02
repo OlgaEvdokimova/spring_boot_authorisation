@@ -27,7 +27,8 @@ services:
 #      DATASOURCE_URL: jdbc:postgresql://postgresqldb:5432/demo
 #      DATASOURCE_PASSWORD: postgres
 #      DATASOURCE_USERNAME: postgres
-#      JWT_SECRET: ${JWT_SECRET}
+#      JWT_SECRET_ACCESS: ${JWT_SECRET_ACCESS}
+#      JWT_SECRET_REFRESH: ${JWT_SECRET_REFRESH}
 #      REDIS_HOST: redis
 #    depends_on:
 #      - postgresqldb

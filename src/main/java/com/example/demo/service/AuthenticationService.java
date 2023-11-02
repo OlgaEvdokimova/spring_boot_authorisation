@@ -48,7 +48,7 @@ public class AuthenticationService {
 
     @Transactional
     public void logout(String refreshToken) {
-        tokenService.checkUserByToken(refreshToken);
+        tokenService.checkUserByRefreshToken(refreshToken);
         tokenLogoutStoreService.delete(refreshToken);
     }
 }

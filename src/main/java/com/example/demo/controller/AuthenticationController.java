@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,7 +32,8 @@ public class AuthenticationController {
             summary = "Log out",
             security = @SecurityRequirement(name = "Bearer Authentication"),
             description = "Log out from the system")
-    public void logout(@RequestParam String refreshToken) {
+    public ResponseEntity<Void> logout(@RequestParam String refreshToken) {
         authenticationService.logout(refreshToken);
+        return ResponseEntity.noContent().build();
     }
 }

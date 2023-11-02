@@ -30,7 +30,7 @@ public class JwtService {
     public boolean validateJwtToken(String jwt) {
         try {
             Jwts.parserBuilder()
-                    .setSigningKey(getJwtSecret())
+                    .setSigningKey(getJwtAccessSecret())
                     .build()
                     .parseClaimsJws(jwt);
             return true;
@@ -65,7 +65,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(currentDate)
                 .setExpiration(expiryDate)
-                .signWith(getJwtSecret(), SignatureAlgorithm.HS512)
+                .signWith(getJwtAccessSecret(), SignatureAlgorithm.HS512)
                 .compact();
     }
 
@@ -73,24 +73,45 @@ public class JwtService {
         return expirationTime * 1000;
     }
 
-    public String extractUsername(String jwt) {
-        return extractClaim(jwt, Claims::getSubject);
+    public String extractUsernameForAccess(String jwt) {
+        return extractClaimForAccess(jwt, Claims::getSubject);
     }
 
-    public String extractClaim(String jwtToken, Function<Claims, String> claimsResolver) {
-        final Claims claims = extractClaims(jwtToken);
+    public String extractUsernameRefresh(String jwt) {
+        return extractClaimForRefresh(jwt, Claims::getSubject);
+    }
+
+    public String extractClaimForAccess(String jwtToken, Function<Claims, String> claimsResolver) {
+        final Claims claims = extractClaimsForAccess(jwtToken);
         return claimsResolver.apply(claims);
     }
 
-    public Claims extractClaims(String jwt) {
+    public String extractClaimForRefresh(String jwtToken, Function<Claims, String> claimsResolver) {
+        final Claims claims = extractClaimsForRefresh(jwtToken);
+        return claimsResolver.apply(claims);
+    }
+
+    public Claims extractClaimsForAccess(String jwt) {
+        return extractClaims(jwt, getJwtAccessSecret());
+    }
+
+    public Claims extractClaimsForRefresh(String jwt) {
+        return extractClaims(jwt, getJwtRefreshSecret());
+    }
+
+    public Claims extractClaims(String jwt, Key jwtSecret) {
         return Jwts.parserBuilder()
-                .setSigningKey(getJwtSecret())
+                .setSigningKey(jwtSecret)
                 .build()
                 .parseClaimsJws(jwt)
                 .getBody();
     }
 
-    private Key getJwtSecret() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtTokenProperties.getJwtSecret()));
+    private Key getJwtAccessSecret() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtTokenProperties.getJwtSecretAccess()));
+    }
+
+    private Key getJwtRefreshSecret() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtTokenProperties.getJwtSecretRefresh()));
     }
 }
